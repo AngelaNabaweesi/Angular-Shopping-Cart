@@ -1,0 +1,55 @@
+<!-- //centered and horizontal(auto) border-x(border on left and right side*/ -->
+<mat-toolbar class="max-w-7x1 mx-auto border-x justify-between"> 
+    <a routerLink="home">Ecommerce Store</a>
+    <!--Adds the number with a color to the badge-->
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon
+        [matBadge]="itemsQuantity"
+        [matBadgeHidden] = "!itemsQuantity"
+        matBadgeColor="warn"
+        >shopping_cart</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <!--p-3-padding divide-y-space between the div divide-solid-make the division solid-->
+        <div class="p-3 divide-y divide-solid">
+            <div class="pb-3 flex justify-between">
+                <!--Describes how many you are going to have-->
+                <span class="mr-16">{{itemsQuantity}} Items</span>
+                <a routerLink="cart">View Cart</a>
+            </div>
+            <div  *ngIf="cart.items.length" class="py-3">
+                <div 
+                    *ngFor= "let item of cart.items"
+                class="flex justify-between fomt-light mb-2">
+                    {{item.name}} * {{item.quantity}}
+                    <!--currency adds the dollar sign to the amount 150-->
+                    <span class="font-bold">{{ item.price | currency}}</span>
+                </div>
+            </div>  
+            <div class="flex justify-between py-3 font-light">
+                Total:
+                <span class="font-bold">{{ getTotal(cart.items) | currency}}</span>
+            </div>
+            <div class="pt-3 flex justify-between">
+                <!--bg-rose-600(600-intensity of the color) is the background color rounded-full -border radius--->
+                <button 
+                    (click) ="onClearCart()"
+                    class="bg-rose-600 text-white rounded-full w-9 h-9">
+                    <mat-icon>remove_shopping_cart</mat-icon>
+                </button>
+                <button routerLink="cart"
+                class="bg-green-600 text-white rounded-full w-9 h-9">
+                    <mat-icon>shopping_cart</mat-icon>
+                </button>
+            </div>         
+        </div>
+    </mat-menu>
+    
+    <!--     -->
+    <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon> -->
+</mat-toolbar>
+
+<!-- <mat-toolbar>
+    <span>My Application</span>
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+  </mat-toolbar> -->
